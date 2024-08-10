@@ -1,0 +1,44 @@
+nav {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+nav > div {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--navbar-background);
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+}
+
+nav a {
+  font-family: var(--font-title);
+  color: var(--navbar-default-color-text);
+  padding: 1rem;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  transition: background-color 0.1s;
+}
+
+nav a span {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  height: 1.4rem;
+}
+
+nav a:hover {
+  color: var(--navbar-hover);
+}
+
+nav a.active {
+  color: var(--navbar-active) !important;
+}
