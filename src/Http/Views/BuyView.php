@@ -6,7 +6,7 @@ $data = BuyController::$data;
 
 ?>
 
-<section class="container mx-auto flex items-center flex-grow">
+<section class="container">
   <div class="card">
     <div class="card-header">
       <h1 class="card-title">Buy</h1>
@@ -18,12 +18,20 @@ $data = BuyController::$data;
           <img id="item-image" class="w-32 h-32" src="" alt="Item image" hidden>
         </div>
 
-        <label for="item">Item</label>
-        <input type="text" id="search-item" oninput="searchItems()" class="form-control" placeholder="Search item" required>
+        <div class="flex flex-col">
+          <input
+            id="search-item"
+            type="text"
+            oninput="searchItems()"
+            class="input"
+            placeholder="Search item"
+            autocomplete="off"
+            required>
 
-        <select id="select-items" name="item" class="form-control" disabled required>
-          <option value="loading" selected>Search something before selecting items</option>
-        </select>
+          <select id="select-items" name="item" class="select" disabled required>
+            <option value="loading" selected>Search something before selecting items</option>
+          </select>
+        </div>
 
         <button id="submit" type="submit" class="btn btn-primary" disabled>Continue</button>
       </form>

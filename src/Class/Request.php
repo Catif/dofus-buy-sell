@@ -8,7 +8,6 @@ class Request
   public string $uri = '';
   public string $route = '';
   public array $params = [];
-  public array $body = [];
 
   public function __construct()
   {
@@ -18,10 +17,9 @@ class Request
     $explodeUri = $this->explodeURI();
     $this->route = $explodeUri['route'];
     $this->params = $explodeUri['params'];
-    $this->body = $this->requestJson();
   }
 
-  private function requestJson(): array
+  public function getBody(): array
   {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       return [];

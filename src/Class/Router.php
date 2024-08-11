@@ -2,6 +2,8 @@
 
 namespace Catif\Dofus\Class;
 
+use Exception;
+
 class Router
 {
   protected static $type = 'HTTP';
@@ -23,6 +25,7 @@ class Router
         static::$type = $type;
       }
       static::$route = substr(static::$route, strlen($prefix));
+      static::$route = rtrim(static::$route, '/');
       $callback();
     }
   }
@@ -78,7 +81,7 @@ class Router
 
       static::success($response);
     } catch (\Exception $e) {
-      static::error($e->getMessage(), $e->getCode());
+      static::error($e);
     }
   }
 
@@ -92,12 +95,23 @@ class Router
     echo $body;
   }
 
-  private static function error($message, $code)
+  private static function error(Exception $e)
   {
+    $message = $e->getMessage();
+
     if (static::$type === 'API') {
+      $codeException = $e->getCode();
+      $code = is_numeric($codeException) ? $codeException : 500;
+
       http_response_code($code);
       header('Content-Type: application/json');
-      echo json_encode(['error' => $message]);
+      echo json_encode([
+        'meta' => [
+          'code' => $code,
+          'status' => 'error',
+          'message' => $message,
+        ],
+      ]);
     } else {
       echo $message;
     }
@@ -115,6 +129,7 @@ class Router
     if (static::$routeFound || $_SERVER['REQUEST_METHOD'] !== $method) {
       return false;
     }
+
 
     $url = rtrim($url, '/');
 

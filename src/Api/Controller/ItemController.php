@@ -6,14 +6,14 @@ use Catif\Dofus\Api\Resource\IndexItemsResource;
 use Catif\Dofus\Class\Database;
 use Catif\Dofus\Class\Request;
 
-class ItemsController extends BaseController
+class ItemController extends BaseController
 {
   public function index(Request $request)
   {
     $query = $request->params;
 
     if (!isset($query['query'])) {
-      throw new \Exception('Query parameter is required');
+      $this->error('Query is required', 400);
     }
 
     $db = Database::getInstance();
